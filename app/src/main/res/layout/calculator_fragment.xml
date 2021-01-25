@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.filipebezerra.android.tipcalculator.calculator.CalculatorViewModel"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/normal_spacing"
+        android:paddingTop="@dimen/larger_spacing"
+        android:paddingEnd="@dimen/normal_spacing"
+        android:paddingBottom="@dimen/normal_spacing"
+        tools:context=".calculator.CalculatorFragment"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/check_amount_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/check_amount"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_twotone_currency_24"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/check_amount_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="@={viewModel.checkAmountInput}"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_percentage_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing"
+            android:hint="@string/tip_percentage"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/check_amount_input_layout"
+            app:startIconDrawable="@drawable/ic_twotone_store_24"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tip_percentage_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="numberSigned"
+                android:text="@={viewModel.tipPercentageInput}"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/check_amount_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.billAmountOutput}"
+            android:textAppearance="?textAppearanceHeadline6"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tip_percentage_text"
+            app:layout_constraintEnd_toStartOf="@+id/tip_percentage_text"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="$ 20.00"
+            />
+
+        <TextView
+            android:id="@+id/tip_percentage_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_spacing"
+            android:text="@{viewModel.tipAmountOutput}"
+            android:textAppearance="?textAppearanceHeadline6"
+            app:layout_constraintEnd_toStartOf="@+id/grand_total_text"
+            app:layout_constraintStart_toEndOf="@+id/check_amount_text"
+            app:layout_constraintTop_toBottomOf="@+id/tip_percentage_input_layout"
+            tools:text="$ 2.50"
+            />
+
+        <TextView
+            android:id="@+id/grand_total_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.totalOutput}"
+            android:textAppearance="?textAppearanceHeadline6"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tip_percentage_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tip_percentage_text"
+            tools:text="$ 22.50"
+            />
+
+        <TextView
+            android:id="@+id/check_amount_label_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:text="@string/check"
+            app:layout_constraintEnd_toEndOf="@+id/check_amount_text"
+            app:layout_constraintStart_toStartOf="@+id/check_amount_text"
+            app:layout_constraintTop_toBottomOf="@+id/check_amount_text"
+            />
+
+        <TextView
+            android:id="@+id/tip_percentage_label_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:text="@string/tip"
+            app:layout_constraintEnd_toEndOf="@+id/tip_percentage_text"
+            app:layout_constraintStart_toStartOf="@+id/tip_percentage_text"
+            app:layout_constraintTop_toBottomOf="@+id/tip_percentage_text"
+            />
+
+        <TextView
+            android:id="@+id/grand_total_label_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:text="@string/total"
+            app:layout_constraintEnd_toEndOf="@+id/grand_total_text"
+            app:layout_constraintStart_toStartOf="@+id/grand_total_text"
+            app:layout_constraintTop_toBottomOf="@+id/grand_total_text"
+            />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/extended_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:contentDescription="@string/click_to_pay"
+            android:onClick="@{() -> viewModel.calculateTip()}"
+            android:text="@string/pay"
+            app:icon="@drawable/ic_twotone_wallet_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
